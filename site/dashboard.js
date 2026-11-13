@@ -306,6 +306,6 @@ readResults("swe-retrieval.json").then(renderCoding).catch(() => {
   byId("coding-caption").textContent = "Coding measurements unavailable";
 });
 
-readResults("locomo-refined.json").then(renderRefined).catch(() => {
+readResults("locomo-refined.json?v=2").then(renderRefined).catch(() => {
   byId("refined-caption").textContent = "Rerun results pending";
 });
