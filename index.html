@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agent Memory Benchmark | Independent results</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Sources">
+        <a href="https://github.com/yulongbai-nov/agent-memory-leaderboard">Site repository</a>
+        <a href="results.json">Matched JSON</a>
+        <a href="archive.json">Archive JSON</a>
+        <a href="https://github.com/yulongbai-nov/agent-memory-leaderboard/blob/feat/textual-memory-adapters/PROJECT_STATUS.md">Project status</a>
+      </nav>
+      <h1>Agent Memory<br>Benchmark</h1>
+      <p>Independent results for self-hosted memory frameworks, with run logs, retrieved evidence, and resource measurements.</p>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav class="sections" aria-label="Leaderboard sections">
+      <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a>
+    </nav>
+    <section aria-labelledby="matched">
+      <div class="section-heading">
+        <div><h2 id="matched">Matched LoCoMo smoke test</h2><p id="protocol">One conversation · 40 source turns · 3 questions · k=10 · 1 worker</p></div>
+        <span id="completion" role="status">Loading results…</span>
+      </div>
+      <div id="charts" class="charts"></div>
+      <div class="scroller" tabindex="0" role="region" aria-label="Matched measurements">
+        <table id="matched-table"><caption>Matched measurements</caption></table>
+      </div>
+      <p class="note">Search and answer times include remote API time where applicable. The sampled peak adds host process RSS and container working sets. Wall time excludes image builds and OpenViking’s prestarted server startup. Runner CPU models are shown per candidate and timings are observed, without CPU normalization.</p>
+      <p class="note">Memory tokens reflect adapter-reported usage. Coverage varies and judge tokens are unavailable. Three questions are enough to check the integration path. P95 and answer scores need a larger sample for ranking.</p>
+    </section>
+    <section aria-labelledby="findings">
+      <h2 id="findings">Analysis</h2>
+      <div id="analysis"></div>
+    </section>
+    <section aria-labelledby="evidence-title">
+      <h2 id="evidence-title">Per-candidate evidence</h2>
+      <p>Open a candidate to inspect each question, reference answer, prediction, and retrieved source sessions where available.</p>
+      <div id="evidence"></div>
+    </section>
+    <section aria-labelledby="archive">
+      <div class="section-heading">
+        <div><h2 id="archive">Public results archive</h2><p>Results from the RonsenbergVI harness, grouped by dataset and retrieval limit. AML publishes its official results separately.</p></div>
+        <label>Cohort <select id="cohort"></select></label>
+      </div>
+      <p id="archive-models" class="note"></p>
+      <div id="archive-chart" class="charts"></div>
+      <div class="scroller" tabindex="0" role="region" aria-label="Upstream run measurements">
+        <table id="archive-table"><caption>Upstream run measurements</caption></table>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap">
+    <p><a href="https://agentmemoryleaderboard.ai/home">Official AML leaderboard</a> · <a href="https://github.com/RonsenbergVI/agent-memory-benchmarks">Benchmark harness and upstream results</a></p>
+  </div></footer>
+</body>
+</html>
