@@ -1,0 +1,16 @@
+{
+  "id": "swe-bench-full",
+  "label": "SWE-bench Full",
+  "track": "Coding",
+  "source": "https://www.swebench.com/",
+  "revision": "e48e2bd1e9fecd5bbd641e9414ac59da9f2e69f6",
+  "split": "test",
+  "task_rows": 2294,
+  "status": "Reference data",
+  "note": "Original issue-to-patch suite. Use a fixed coding agent and the official patch verifier. This release does not label which earlier issue a memory system should retrieve.",
+  "file": {
+    "path": "swe/swe-bench-full.parquet",
+    "url": "https://huggingface.co/datasets/princeton-nlp/SWE-bench/resolve/e48e2bd1e9fecd5bbd641e9414ac59da9f2e69f6/data/test-00000-of-00001.parquet",
+    "sha256": "db4f70ef735b3162c74801ddcdf8d7bae8d704193788c6d844f898c20b571cbb"
+  }
+}

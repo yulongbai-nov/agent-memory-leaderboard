@@ -151,6 +151,9 @@ function evidence(entry) {
   return details;
 }
 
+const activeSystems = ["naive", "agent-memory-lab", "openviking", "everos"];
+const activeEntries = (entries) => activeSystems.map((name) => entries.find((entry) => entry.system === name)).filter(Boolean);
+
 function renderMatched(entries) {
   byId("completion").textContent = entries.filter((entry) => entry.questions).length + "/" + entries.length + " completed";
   byId("protocol").append(" · GPT-6 Luna reader and judge · text-embedding-3-small where used");
@@ -262,6 +265,7 @@ function renderCoding(rows) {
 }
 
 function renderRefined(entries) {
+  entries = activeEntries(entries);
   const completed = entries.filter((entry) => entry.status === "Completed").length;
   byId("refined-caption").textContent = completed + "/" + entries.length + " candidates completed";
   appendTable(byId("refined-table"), ["Candidate", "Status", "Correct", "Evidence found", "Search p50 s", "Ingest s", "Wall s", "Peak MiB", "Runner"], entries.map((entry) => {
@@ -288,7 +292,8 @@ async function readResults(path) {
 }
 
 Promise.all([readResults("results.json?v=4"), readResults("archive.json")]).then(([results, archive]) => {
-  renderMatched(results.matched);
+  renderMatched(activeEntries(results.matched));
+  byId("smoke-archive").append(...results.matched.filter((entry) => !activeSystems.includes(entry.system)).map(evidence));
   byId("protocol").append(" · ", link("Workflow run", results.run_url));
   renderArchive(archive);
   byId("analysis").append(...results.analysis.map((paragraph) => node("p", paragraph)));
@@ -306,6 +311,6 @@ readResults("swe-retrieval.json").then(renderCoding).catch(() => {
   byId("coding-caption").textContent = "Coding measurements unavailable";
 });
 
-readResults("locomo-refined.json?v=2").then(renderRefined).catch(() => {
+readResults("locomo-refined.json?v=3").then(renderRefined).catch(() => {
   byId("refined-caption").textContent = "Rerun results pending";
 });

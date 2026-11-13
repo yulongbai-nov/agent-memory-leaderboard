@@ -33,7 +33,7 @@ AML rankings.
   source records. BM25 and Agent Memory Lab completed a same-runner retrieval
   comparison on the 118 rows with an eligible earlier same-repository label.
   [Coding run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43349212868)
-- [ ] Complete the 30-question LoCoMo-Refined rerun for all candidates.
+- [ ] Complete the 30-question LoCoMo-Refined comparison for BM25, Agent Memory Lab, OpenViking and EverOS.
   [Textual run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43349136480)
 - [ ] Score the remaining expanded public cohorts and run the coding patch verifier. ScriptMem retrieval needs the
   original scripts. The official AML bundle and CAMBench are held out.

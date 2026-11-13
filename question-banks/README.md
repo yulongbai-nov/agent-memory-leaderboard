@@ -36,3 +36,8 @@ original evidence stay in their respective upstream releases. The selections
 do not contain system scores. Future scored runs must use the same selected
 IDs per candidate, use each suite’s source history and scoring rules, and
 record media input mode and the coding verifier separately from textual QA.
+
+The [original SWE-bench Full test split](swe-bench-full.json) is also pinned
+as a separate 2,294-task patch-resolution reference. Its records have no
+native prior-issue relevance labels. The 633-item AML-inspired bank and its
+coding retrieval comparison use SWE-ContextBench for that purpose.
