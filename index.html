@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Agent Memory Benchmark | Independent results</title>
-  <link rel="stylesheet" href="style.css?v=3">
-  <script src="dashboard.js?v=4" defer></script>
+  <link rel="stylesheet" href="style.css?v=5">
+  <script src="dashboard.js?v=5" defer></script>
 </head>
 <body>
   <header>
@@ -22,7 +22,7 @@
   </header>
   <main class="wrap">
     <nav class="sections" aria-label="Leaderboard sections">
-      <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a>
+      <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a><a href="#question-banks">Question banks</a>
     </nav>
     <section aria-labelledby="matched">
       <div class="section-heading">
@@ -56,6 +56,16 @@
       <div class="scroller" tabindex="0" role="region" aria-label="Upstream run measurements">
         <table id="archive-table"><caption>Upstream run measurements</caption></table>
       </div>
+    </section>
+    <section aria-labelledby="question-banks">
+      <div class="section-heading">
+        <div><h2 id="question-banks">Public question banks</h2><p>Fixed samples from public benchmark releases. Results will appear after the selected questions run.</p></div>
+        <a href="question-banks.json">Download question IDs and sources</a>
+      </div>
+      <div class="scroller" tabindex="0" role="region" aria-label="Question bank coverage">
+        <table id="bank-table"><caption id="bank-caption">Question bank coverage</caption></table>
+      </div>
+      <p class="note">AML’s official question bundle and CAMBench are held out. SWE-ContextBench Lite is the public coding reference. ScriptMem’s original scripts are absent from its public release.</p>
     </section>
   </main>
   <footer><div class="wrap">

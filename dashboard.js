@@ -233,6 +233,21 @@ function renderArchive(cohorts) {
   show();
 }
 
+function renderQuestionBanks(bank) {
+  const count = bank.suites.reduce((total, suite) => total + suite.questions.length, 0);
+  byId("bank-caption").textContent = count + " questions across " + bank.suites.length + " suites";
+  appendTable(byId("bank-table"), ["Suite", "Track", "Selected", "Eligible", "Status", "Protocol"], bank.suites.map((suite) => ({
+    cells: [
+      link(suite.label, suite.source), suite.track, number(suite.questions.length, 0),
+      number(suite.eligible_questions, 0), suite.status, suite.note,
+    ],
+    keys: [
+      suite.label, suite.track, suite.questions.length, suite.eligible_questions,
+      suite.status, suite.note,
+    ],
+  })));
+}
+
 async function readResults(path) {
   const response = await fetch(path);
   if (!response.ok) throw new Error("Results are unavailable.");
@@ -246,4 +261,9 @@ Promise.all([readResults("results.json?v=4"), readResults("archive.json")]).then
   byId("analysis").append(...results.analysis.map((paragraph) => node("p", paragraph)));
 }).catch(() => {
   byId("completion").textContent = "Could not load results";
+});
+
+
+readResults("question-banks.json").then(renderQuestionBanks).catch(() => {
+  byId("bank-caption").textContent = "Could not load question banks";
 });
