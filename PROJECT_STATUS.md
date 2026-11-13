@@ -16,7 +16,12 @@ AML rankings.
 - [x] Verify the OpenSquilla Textual HTTP adapter locally in native keyword
   mode. Two synthetic retrieval probes, duplicate Add, authentication, and
   user isolation passed.
+- [x] Publish the independent report on GitHub Pages.
+- [x] Run native OpenSquilla keyword-only Textual smoke in the new fork’s CI.
 - [ ] Verify both Textual HTTP adapters with live providers from this fork.
+  The new fork has no provider key. The [CI run](https://github.com/yulongbai-nov/agent-memory-leaderboard/actions/runs/43341709992)
+  skipped the live OpenViking step. The matched benchmark above exercised
+  both native engines with live providers in the original harness.
 - [ ] Add a larger matched public corpus and the in-house memory candidate.
 
 [GitHub Pages](https://yulongbai-nov.github.io/agent-memory-leaderboard/)

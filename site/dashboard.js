@@ -7,8 +7,11 @@ const names = {
 };
 const byId = (id) => document.getElementById(id);
 const nameOf = (id) => names[id] || id;
-const number = (value, digits = 2) =>
-  Number.isFinite(value) ? value.toLocaleString("en", { maximumFractionDigits: digits }) : "—";
+function number(value, digits = 2) {
+  if (!Number.isFinite(value)) return "—";
+  if (value > 0 && value < 10 ** -digits) return "<" + 10 ** -digits;
+  return value.toLocaleString("en", { maximumFractionDigits: digits });
+}
 const coverage = (summary) => summary ? summary.usage_coverage ?? "full" : "—";
 const found = (summary) => summary?.attribution?.n ? summary.attribution.found : null;
 const ratio = (value) => Number.isFinite(value) ? number(value * 100, 1) + "%" : "—";
