@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Agent Memory Benchmark | Independent results</title>
   <link rel="stylesheet" href="style.css?v=5">
-  <script src="dashboard.js?v=7" defer></script>
+  <script src="dashboard.js?v=8" defer></script>
 </head>
 <body>
   <header>
@@ -47,13 +47,17 @@
       <p class="note">Memory tokens reflect adapter-reported usage. Coverage varies and judge tokens are unavailable. Three questions are enough to check the integration path. P95 and answer scores need a larger sample for ranking.</p>
     </section>
     <section aria-labelledby="findings">
-      <h2 id="findings">Analysis</h2>
+      <h2 id="findings">Earlier smoke-test analysis</h2>
       <div id="analysis"></div>
     </section>
     <section aria-labelledby="evidence-title">
       <h2 id="evidence-title">Per-candidate evidence</h2>
       <p>Open a candidate to inspect each question, reference answer, prediction, and retrieved source sessions where available.</p>
       <div id="evidence"></div>
+      <details>
+        <summary>Earlier smoke-test candidates</summary>
+        <div id="smoke-archive" class="details-body"></div>
+      </details>
     </section>
     <section aria-labelledby="archive">
       <div class="section-heading">
@@ -76,6 +80,7 @@
         <table id="coding-table"><caption id="coding-caption">Coding retrieval measurements</caption></table>
       </div>
       <p class="note">Scores use tasks with eligible labelled evidence. Patch generation and test execution are a separate evaluation.</p>
+      <p><a href="swe-bench-full.json">Original SWE-bench Full test split</a> · 2,294 patch-resolution tasks with a pinned source and checksum.</p>
     </section>
     <section aria-labelledby="question-banks">
       <div class="section-heading">
