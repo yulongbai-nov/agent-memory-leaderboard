@@ -22,6 +22,11 @@ AML rankings.
   The new fork has no provider key. The [CI run](https://github.com/yulongbai-nov/agent-memory-leaderboard/actions/runs/43341709992)
   skipped the live OpenViking step. The matched benchmark above exercised
   both native engines with live providers in the original harness.
-- [ ] Add a larger matched public corpus and the in-house memory candidate.
+- [x] Add Agent Memory Lab to the matched comparison. The pinned native
+  SQLite archive imported all 40 turns and scored 1/3 on the original question
+  IDs in a separate four-vCPU Actions job. Its adapter ranks native keyword
+  matches by distinct query-term count. [Scored run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43344052919/job/131618995407)
+- [x] Publish ascending and descending sorting for every column in both tables.
+- [ ] Add a larger matched public corpus.
 
 [GitHub Pages](https://yulongbai-nov.github.io/agent-memory-leaderboard/)
