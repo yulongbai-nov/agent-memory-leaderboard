@@ -174,7 +174,7 @@ async function readResults(path) {
   return response.json();
 }
 
-Promise.all([readResults("results.json"), readResults("archive.json")]).then(([results, archive]) => {
+Promise.all([readResults("results.json?v=2"), readResults("archive.json")]).then(([results, archive]) => {
   renderMatched(results.matched);
   byId("protocol").append(" · ", link("Workflow run", results.run_url));
   renderArchive(archive);
