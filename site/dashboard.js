@@ -1,7 +1,7 @@
 "use strict";
 
 const names = {
-  naive: "BM25", opensquilla: "OpenSquilla", openviking: "OpenViking",
+  "agent-memory-lab": "Agent Memory Lab", naive: "BM25", opensquilla: "OpenSquilla", openviking: "OpenViking",
   cognee: "Cognee", everos: "EverOS", fraise: "Fraise", graphiti: "Graphiti",
   hindsight: "Hindsight", langmem: "LangMem", mem0: "Mem0", memos: "MemOS",
 };
@@ -34,21 +34,69 @@ function link(text, url) {
   return anchor;
 }
 
-function appendTable(table, columns, rows) {
+const tableSorts = new WeakMap();
+const textOrder = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
+const latencyKey = (value) => [value?.p50_s, value?.p95_s];
+
+function compareKeys(left, right, direction) {
+  const a = Array.isArray(left) ? left : [left];
+  const b = Array.isArray(right) ? right : [right];
+  for (let index = 0; index < a.length; index++) {
+    const x = a[index];
+    const y = b[index];
+    if (x == null || y == null) {
+      if (x != null) return -1;
+      if (y != null) return 1;
+      continue;
+    }
+    const order = typeof x === "number" && typeof y === "number" ? x - y : textOrder.compare(x, y);
+    if (order) return direction * order;
+  }
+  return 0;
+}
+
+function appendTable(table, columns, rows, defaultSort = null) {
+  let sort = tableSorts.get(table) ?? defaultSort;
   const head = table.createTHead().insertRow();
-  for (const column of columns) {
-    const cell = node("th", column);
-    cell.scope = "col";
-    head.append(cell);
-  }
   const body = table.createTBody();
-  for (const values of rows) {
-    const row = body.insertRow();
-    const header = node("th", values[0]);
-    header.scope = "row";
-    row.append(header);
-    for (const value of values.slice(1)) row.append(node("td", value));
+
+  function showRows() {
+    const ordered = sort ? [...rows].sort((a, b) =>
+      compareKeys(a.keys[sort.column], b.keys[sort.column], sort.direction)) : rows;
+    body.replaceChildren(...ordered.map(({ cells }) => {
+      const row = node("tr");
+      const header = node("th", cells[0]);
+      header.scope = "row";
+      row.append(header, ...cells.slice(1).map((value) => node("td", value)));
+      return row;
+    }));
+    Array.from(head.cells).forEach((header, index) => {
+      const active = sort?.column === index;
+      const direction = active && sort.direction === -1 ? "descending" : "ascending";
+      if (active) header.setAttribute("aria-sort", direction);
+      else header.removeAttribute("aria-sort");
+      header.querySelector(".sort-arrow").textContent = active ? (sort.direction === 1 ? "▲" : "▼") : "↕";
+      header.querySelector("button").title = "Sort " + (active && sort.direction === 1 ? "descending" : "ascending");
+    });
   }
+
+  columns.forEach((column, index) => {
+    const cell = node("th");
+    cell.scope = "col";
+    const button = node("button", column, "sort-column");
+    button.type = "button";
+    const arrow = node("span", null, "sort-arrow");
+    arrow.setAttribute("aria-hidden", "true");
+    button.append(arrow);
+    button.addEventListener("click", () => {
+      sort = { column: index, direction: sort?.column === index ? -sort.direction : 1 };
+      tableSorts.set(table, sort);
+      showRows();
+    });
+    cell.append(button);
+    head.append(cell);
+  });
+  showRows();
 }
 
 function chart(title, entries, valueOf, format, fixedMax) {
@@ -120,7 +168,7 @@ function renderMatched(entries) {
     const summary = entry.summary;
     const runtime = entry.runtime;
     const runner = runtime?.runner;
-    return [
+    const cells = [
       link(nameOf(entry.system), entry.url), entry.status, score(entry), ratio(found(summary)),
       number(summary?.hits_per_query), pair(summary?.search_latency), pair(summary?.answer_latency),
       number(summary?.ingest?.total_s), number(runtime?.wall_seconds), number(peak(entry), 0),
@@ -130,6 +178,16 @@ function renderMatched(entries) {
       runner ? [runner.cpu, runner.logical_cpus + " vCPU", number(runner.memory_kib / 1024 ** 2, 1) + " GiB", runner.image_version].filter(Boolean).join(" · ") : "—",
       summary?.system_version ?? "—",
     ];
+    return { cells, keys: [
+      nameOf(entry.system), entry.status, correct(entry), found(summary), summary?.hits_per_query,
+      latencyKey(summary?.search_latency), latencyKey(summary?.answer_latency),
+      summary?.ingest?.total_s, runtime?.wall_seconds, peak(entry),
+      [runtime?.memory_samples, runtime?.dropped_memory_samples],
+      [summary?.tokens?.input_per_question, summary?.tokens?.output_per_question],
+      summary?.memory_tokens_total, summary ? coverage(summary) : null,
+      [runner?.cpu, runner?.logical_cpus, runner?.memory_kib, runner?.image_version],
+      summary?.system_version,
+    ] };
   }));
   byId("evidence").append(...entries.map(evidence));
 }
@@ -156,13 +214,20 @@ function renderArchive(cohorts) {
     appendTable(table, [
       "Candidate", "Accuracy", "Questions", "Errors", "Evidence found", "Hits/query",
       "Search p50 / p95 s", "Answer p50 / p95 s", "Ingest s", "Memory tokens", "Token coverage",
-    ], ranked.map(({ summary, url }) => [
-      link(nameOf(summary.system) + (summary.system_version ? " " + summary.system_version : ""), url),
-      ratio(summary.judge_accuracy), number(summary.num_questions, 0), number(summary.errors, 0),
-      ratio(found(summary)), number(summary.hits_per_query), pair(summary.search_latency),
-      pair(summary.answer_latency), number(summary.ingest?.total_s), number(summary.memory_tokens_total, 0),
-      coverage(summary),
-    ]));
+    ], ranked.map(({ summary, url }) => {
+      const name = nameOf(summary.system) + (summary.system_version ? " " + summary.system_version : "");
+      return { cells: [
+        link(name, url), ratio(summary.judge_accuracy), number(summary.num_questions, 0),
+        number(summary.errors, 0), ratio(found(summary)), number(summary.hits_per_query),
+        pair(summary.search_latency), pair(summary.answer_latency), number(summary.ingest?.total_s),
+        number(summary.memory_tokens_total, 0), coverage(summary),
+      ], keys: [
+        name, summary.judge_accuracy, summary.num_questions, summary.errors,
+        found(summary), summary.hits_per_query, latencyKey(summary.search_latency),
+        latencyKey(summary.answer_latency), summary.ingest?.total_s, summary.memory_tokens_total,
+        coverage(summary),
+      ] };
+    }), { column: 1, direction: -1 });
   }
   select.addEventListener("change", show);
   show();
