@@ -50,3 +50,20 @@ select { font: inherit; padding: .3rem; max-width: min(100%, 42rem); color: inhe
 footer { font-size: .88rem; padding: 1rem 0; color: var(--muted); }
 .sections { padding-top: 1.2rem; }
 #archive-chart .chart-row { grid-template-columns: minmax(8rem, 13rem) minmax(2rem, 1fr) 4rem; }
+
+.sort-column {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .35rem;
+  padding: .2rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.sort-column:hover { color: var(--accent); }
+.sort-column:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sort-arrow { color: var(--muted); font-size: .76em; }
+[aria-sort] .sort-arrow { color: var(--accent); }
