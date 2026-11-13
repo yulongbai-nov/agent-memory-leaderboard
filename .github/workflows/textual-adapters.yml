@@ -1,0 +1,103 @@
+name: AML Textual adapters
+on:
+  push:
+    branches: [feat/textual-memory-adapters]
+    paths: ['integrations/memory/**', '.github/workflows/textual-adapters.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    name: ${{ matrix.backend }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        backend: [opensquilla, openviking]
+    env:
+      AML_ADAPTER_KEY: loopback-smoke
+      OPENVIKING_API_KEY: loopback-viking
+      OPENVIKING_BASE_URL: http://127.0.0.1:1933
+      OPENAI_API_KEY: ${{ secrets.TEXT_EMBEDDING_3_SMALL_OPENAI_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: astral-sh/setup-uv@v5
+      - run: uv pip install --system -r requirements.txt
+      - name: Install native OpenSquilla memory runtime
+        if: matrix.backend == 'opensquilla'
+        run: |
+          uv venv "$RUNNER_TEMP/opensquilla"
+          worker="$RUNNER_TEMP/opensquilla/bin/python"
+          uv pip install --python "$worker" \
+            'https://github.com/TokenRhythm/opensquilla/releases/download/v0.5.8/opensquilla-0.5.8-py3-none-any.whl#sha256=db292f4b604422fb6828acb4d9bb976fb69fcfcff4eaf77109aca0a4aed7151a'
+          printf 'OPENSQUILLA_PYTHON=%s\n' "$worker" >> "$GITHUB_ENV"
+          if [[ -z "$OPENAI_API_KEY" ]]; then
+            echo 'OPENSQUILLA_EMBEDDING=' >> "$GITHUB_ENV"
+          fi
+      - name: Check the provider key for the OpenViking job
+        id: provider
+        if: matrix.backend == 'openviking'
+        run: |
+          if [[ -z "$OPENAI_API_KEY" ]]; then
+            echo 'available=false' >> "$GITHUB_OUTPUT"
+            echo '::warning::OpenViking live smoke requires TEXT_EMBEDDING_3_SMALL_OPENAI_KEY in this fork.'
+          else
+            echo 'available=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Start pinned OpenViking
+        if: steps.provider.outputs.available == 'true'
+        run: |
+          umask 077
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          key = os.environ["OPENAI_API_KEY"]
+          config = {
+              "server": {"host": "0.0.0.0", "port": 1933, "auth_mode": "trusted",
+                         "root_api_key": os.environ["OPENVIKING_API_KEY"]},
+              "storage": {"workspace": "/tmp/aml-openviking"},
+              "embedding": {"dense": {"provider": "openai", "model": "text-embedding-3-small",
+                                       "api_key": key, "dimension": 1536, "input": "text"}},
+              "vlm": {"provider": "openai", "model": "gpt-6-luna", "api_key": key,
+                      "reasoning_effort": "none", "max_tokens": 2048},
+          }
+          Path(os.environ["RUNNER_TEMP"], "ov.conf").write_text(json.dumps(config))
+          PY
+          docker run -d --name aml-openviking -p 127.0.0.1:1933:1933 \
+            -v "$RUNNER_TEMP/ov.conf:/app/.openviking/ov.conf:ro" \
+            ghcr.io/volcengine/openviking@sha256:cd1a62b698c5dd4c2685acf5e3f8b1b543a4c32d25f81dec0ceff23e7a96de9d --without-bot
+          for ((attempt=0; attempt<90; attempt++)); do
+            if curl -fsS -H "X-API-Key: $OPENVIKING_API_KEY" "$OPENVIKING_BASE_URL/health" >/dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+      - name: Test the native Add and Search service
+        if: matrix.backend == 'opensquilla' || steps.provider.outputs.available == 'true'
+        env:
+          BACKEND: ${{ matrix.backend }}
+        run: |
+          python integrations/memory/service.py "$BACKEND" --state-dir "$RUNNER_TEMP/adapter-store" &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for ((attempt=0; attempt<20; attempt++)); do
+            if curl -fsS http://127.0.0.1:8080/health >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          python integrations/memory/smoke.py --output "smoke-results/$BACKEND.json"
+      - uses: actions/upload-artifact@v4
+        if: matrix.backend == 'opensquilla' || steps.provider.outputs.available == 'true'
+        with:
+          name: textual-${{ matrix.backend }}
+          path: smoke-results/
+          if-no-files-found: error
+      - name: Remove benchmark services
+        if: always() && matrix.backend == 'openviking'
+        run: docker rm -f aml-openviking 2>/dev/null || true
