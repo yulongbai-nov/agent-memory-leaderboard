@@ -248,6 +248,39 @@ function renderQuestionBanks(bank) {
   })));
 }
 
+function renderCoding(rows) {
+  const source = rows[0];
+  byId("coding-caption").textContent = source.scorable + " scored of " + source.target_rows + " released task rows";
+  byId("coding-charts").append(chart("Hit rate at 10", rows, (row) => row.hit_at_10, (row) => ratio(row.hit_at_10), 1));
+  appendTable(byId("coding-table"), ["Candidate", "Hit@1", "Hit@10", "Recall@10", "MRR@10", "Median search ms", "Ingest s"], rows.map((row) => {
+    const metrics = [row.hit_at_1, row.hit_at_10, row.recall_at_10, row.mrr_at_10, row.search_p50_s * 1000, row.ingest_s];
+    return {
+      cells: [link(nameOf(row.system), row.url), ...metrics.slice(0, 3).map(ratio), ...metrics.slice(3).map((value) => number(value, 3))],
+      keys: [nameOf(row.system), ...metrics],
+    };
+  }));
+}
+
+function renderRefined(entries) {
+  const completed = entries.filter((entry) => entry.status === "Completed").length;
+  byId("refined-caption").textContent = completed + "/" + entries.length + " candidates completed";
+  appendTable(byId("refined-table"), ["Candidate", "Status", "Correct", "Evidence found", "Search p50 s", "Ingest s", "Wall s", "Peak MiB", "Runner"], entries.map((entry) => {
+    const summary = entry.summary;
+    const search = summary?.search_latency?.p50_s;
+    const ingest = summary?.ingest?.total_s;
+    const wall = entry.runtime?.wall_seconds;
+    const cpu = entry.runtime?.runner;
+    const correct = summary?.judge_accuracy * summary?.num_questions;
+    return {
+      cells: [link(nameOf(entry.system), entry.url), entry.status, summary ? number(correct, 0) + "/" + summary.num_questions : "—",
+        ratio(found(summary)), number(search, 3), number(ingest), number(wall), number(peak(entry), 0),
+        cpu ? cpu.cpu + " · " + cpu.logical_cpus + " vCPU" : "—"],
+      keys: [nameOf(entry.system), entry.status, Number.isFinite(correct) ? correct : null, found(summary),
+        search, ingest, wall, peak(entry), cpu?.cpu],
+    };
+  }));
+}
+
 async function readResults(path) {
   const response = await fetch(path);
   if (!response.ok) throw new Error("Results are unavailable.");
@@ -264,6 +297,15 @@ Promise.all([readResults("results.json?v=4"), readResults("archive.json")]).then
 });
 
 
-readResults("question-banks.json").then(renderQuestionBanks).catch(() => {
+readResults("question-banks.json?v=2").then(renderQuestionBanks).catch(() => {
   byId("bank-caption").textContent = "Could not load question banks";
+});
+
+
+readResults("swe-retrieval.json").then(renderCoding).catch(() => {
+  byId("coding-caption").textContent = "Coding measurements unavailable";
+});
+
+readResults("locomo-refined.json").then(renderRefined).catch(() => {
+  byId("refined-caption").textContent = "Rerun results pending";
 });
