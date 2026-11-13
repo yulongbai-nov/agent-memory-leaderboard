@@ -22,7 +22,7 @@
     "track": "Textual",
     "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned",
     "status": "Selected",
-    "note": "Use each question\u2019s full haystack, including distractor sessions.",
+    "note": "Use each question’s full haystack, including distractor sessions.",
     "files": [
       {
         "path": "lme.json",
@@ -56,7 +56,7 @@
     "track": "Textual",
     "source": "https://huggingface.co/datasets/tencent/CL-bench",
     "status": "Selected",
-    "note": "Keep each task\u2019s original context and use the task rubrics for scoring.",
+    "note": "Keep each task’s original context and use the task rubrics for scoring.",
     "files": [
       {
         "path": "cl.jsonl",
@@ -103,20 +103,32 @@
   },
   {
     "id": "swe-contextbench",
-    "label": "SWE-ContextBench Lite",
+    "label": "SWE-ContextBench Full",
     "track": "Coding",
     "source": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench",
     "status": "Selected",
-    "note": "Public AML reference suite. Score agent patches using the native verifier with pinned prior-experience tasks. CAMBench is held out.",
+    "note": "All 362 released related-task rows. Five instance IDs repeat, so the source row disambiguates tasks. Coding retrieval and patch verification are separate metrics.",
     "files": [
       {
-        "path": "swe/SWEContextBench_Related_Lite.parquet",
-        "url": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench/resolve/12c65bd15e2559bc808065565e941ee7bbbd008f/data/SWEContextBench_Related_Lite.parquet",
-        "sha256": "1930b392f7beb17a0d87c2e79d1eb889af2c5996b23a003386651ba64a68b8f3"
+        "path": "swe/SWEContextBench_Related.parquet",
+        "url": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench/resolve/12c65bd15e2559bc808065565e941ee7bbbd008f/data/SWEContextBench_Related.parquet",
+        "sha256": "394ce86dbf8e5b7471264625ad4879d70c676a5b43dd16e4d7416592547c8892"
       }
     ],
     "revision": "12c65bd15e2559bc808065565e941ee7bbbd008f",
-    "minimum": 30
+    "minimum": 362,
+    "context_files": [
+      {
+        "path": "swe/SWEContextBench_Experience.parquet",
+        "url": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench/resolve/12c65bd15e2559bc808065565e941ee7bbbd008f/data/SWEContextBench_Experience.parquet",
+        "sha256": "e10d452123257fabc604e77985e34184ad7504788106ee3ac3e7e8f621303610"
+      },
+      {
+        "path": "swe/SWEContextBench_Relationship.parquet",
+        "url": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench/resolve/12c65bd15e2559bc808065565e941ee7bbbd008f/data/SWEContextBench_Relationship.parquet",
+        "sha256": "f59b1a0fd021c6608bd185f15113cbbd26f804c20494da6d4827adb9ea70edb5"
+      }
+    ]
   },
   {
     "id": "memeye",
@@ -176,7 +188,7 @@
     "track": "Multimodal",
     "source": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery",
     "status": "Selected",
-    "note": "Use original dialogue images and score with the suite\u2019s native evaluation.",
+    "note": "Use original dialogue images and score with the suite’s native evaluation.",
     "files": [
       {
         "path": "gallery/AI_Robotics_Automation_Future_Tech.json",

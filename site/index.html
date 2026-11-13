@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Agent Memory Benchmark | Independent results</title>
   <link rel="stylesheet" href="style.css?v=5">
-  <script src="dashboard.js?v=5" defer></script>
+  <script src="dashboard.js?v=6" defer></script>
 </head>
 <body>
   <header>
@@ -22,8 +22,17 @@
   </header>
   <main class="wrap">
     <nav class="sections" aria-label="Leaderboard sections">
-      <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a><a href="#question-banks">Question banks</a>
+      <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a><a href="#coding">Coding retrieval</a><a href="#question-banks">Question banks</a>
     </nav>
+    <section aria-labelledby="refined">
+      <div class="section-heading">
+        <div><h2 id="refined">LoCoMo-Refined</h2><p>30 fixed text questions across nine complete public conversation histories.</p></div>
+        <a href="https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43349136480">GitHub Actions run</a>
+      </div>
+      <div class="scroller" tabindex="0" role="region" aria-label="LoCoMo-Refined measurements">
+        <table id="refined-table"><caption id="refined-caption">Expanded textual rerun</caption></table>
+      </div>
+    </section>
     <section aria-labelledby="matched">
       <div class="section-heading">
         <div><h2 id="matched">Matched LoCoMo smoke test</h2><p id="protocol">One conversation · 40 source turns · 3 questions · k=10 · 1 worker</p></div>
@@ -57,15 +66,26 @@
         <table id="archive-table"><caption>Upstream run measurements</caption></table>
       </div>
     </section>
+    <section aria-labelledby="coding">
+      <div class="section-heading">
+        <div><h2 id="coding">SWE-ContextBench Full</h2><p>Prior-issue retrieval on earlier issues from the same repository.</p></div>
+        <a href="swe-retrieval.json">Results JSON</a>
+      </div>
+      <div id="coding-charts" class="charts"></div>
+      <div class="scroller" tabindex="0" role="region" aria-label="Coding retrieval measurements">
+        <table id="coding-table"><caption id="coding-caption">Coding retrieval measurements</caption></table>
+      </div>
+      <p class="note">Scores use tasks with eligible labelled evidence. Patch generation and test execution are a separate evaluation.</p>
+    </section>
     <section aria-labelledby="question-banks">
       <div class="section-heading">
         <div><h2 id="question-banks">Public question banks</h2><p>Fixed samples from public benchmark releases. Results will appear after the selected questions run.</p></div>
-        <a href="question-banks.json">Download question IDs and sources</a>
+        <a href="question-banks.json?v=2">Download question IDs and sources</a>
       </div>
       <div class="scroller" tabindex="0" role="region" aria-label="Question bank coverage">
         <table id="bank-table"><caption id="bank-caption">Question bank coverage</caption></table>
       </div>
-      <p class="note">AML’s official question bundle and CAMBench are held out. SWE-ContextBench Lite is the public coding reference. ScriptMem’s original scripts are absent from its public release.</p>
+      <p class="note">AML’s official question bundle and CAMBench are held out. SWE-ContextBench Full is the public coding reference. ScriptMem’s original scripts are absent from its public release.</p>
     </section>
   </main>
   <footer><div class="wrap">

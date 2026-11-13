@@ -27,9 +27,15 @@ AML rankings.
   IDs in a separate four-vCPU Actions job. Its adapter ranks native keyword
   matches by distinct query-term count. [Scored run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43344052919/job/131618995407)
 - [x] Publish ascending and descending sorting for every column in both tables.
-- [x] Pin a public bank of 301 questions across six textual suites, one
-  coding suite and three multimodal suites. [Question bank](question-banks/README.md)
-- [ ] Score the expanded public cohorts. ScriptMem retrieval needs the
+- [x] Pin a public bank of 633 questions across six textual suites, one
+  full coding suite and three multimodal suites. [Question bank](question-banks/README.md)
+- [x] Include all 362 SWE-ContextBench Full task rows and 1,007 prior-task
+  source records. BM25 and Agent Memory Lab completed a same-runner retrieval
+  comparison on the 118 rows with an eligible earlier same-repository label.
+  [Coding run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43349212868)
+- [ ] Complete the 30-question LoCoMo-Refined rerun for all candidates.
+  [Textual run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43349136480)
+- [ ] Score the remaining expanded public cohorts and run the coding patch verifier. ScriptMem retrieval needs the
   original scripts. The official AML bundle and CAMBench are held out.
 
 [GitHub Pages](https://yulongbai-nov.github.io/agent-memory-leaderboard/)

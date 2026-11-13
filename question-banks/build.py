@@ -12,6 +12,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SEED = "memory-bench-public-v1"
+BANK_VERSION = "memory-bench-public-v2"
 
 
 def digest(value):
@@ -90,8 +91,10 @@ def records(suite, path):
                         question["question"],
                     )
     elif suite == "swe-contextbench":
-        for row in parquet(path, ["instance_id", "repo", "problem_statement"]):
-            yield row["instance_id"], row["repo"], row["problem_statement"]
+        for index, row in enumerate(
+            parquet(path, ["instance_id", "repo", "problem_statement"])
+        ):
+            yield f"{row['instance_id']}:{index}", row["repo"], row["problem_statement"]
     elif suite in {"memeye", "mem-gallery"}:
         for index, row in enumerate(
             json.loads(path.read_bytes())["human-annotated QAs"]
@@ -158,7 +161,7 @@ def main():
     csv.field_size_limit(10_000_000)
     sources = json.loads((HERE / "sources.json").read_bytes())
     result = {
-        "version": SEED,
+        "version": BANK_VERSION,
         "suites": [
             select(suite, args.cache, args.include_prompts) for suite in sources
         ],
