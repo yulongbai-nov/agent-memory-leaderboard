@@ -27,6 +27,9 @@ AML rankings.
   IDs in a separate four-vCPU Actions job. Its adapter ranks native keyword
   matches by distinct query-term count. [Scored run](https://github.com/yulongbai-nov/agent-memory-benchmarks/actions/runs/43344052919/job/131618995407)
 - [x] Publish ascending and descending sorting for every column in both tables.
-- [ ] Add a larger matched public corpus.
+- [x] Pin a public bank of 301 questions across six textual suites, one
+  coding suite and three multimodal suites. [Question bank](question-banks/README.md)
+- [ ] Score the expanded public cohorts. ScriptMem retrieval needs the
+  original scripts. The official AML bundle and CAMBench are held out.
 
 [GitHub Pages](https://yulongbai-nov.github.io/agent-memory-leaderboard/)

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "locomo-refined",
+    "label": "LoCoMo-Refined",
+    "track": "Textual",
+    "source": "https://github.com/mem-eval-suite/LoCoMo_refined",
+    "status": "Selected",
+    "note": "The author release has corrected questions. The original LoCoMo smoke run remains separate.",
+    "files": [
+      {
+        "path": "locomo.jsonl",
+        "url": "https://raw.githubusercontent.com/mem-eval-suite/LoCoMo_refined/887091190789e8d6760e70b9edd696539923dc4f/data/public/questions.jsonl",
+        "sha256": "4dd84cf65a28ece0ed6b2a1b7b2700ea639f4e7b2c5e1afcc511e47e81732790"
+      }
+    ],
+    "revision": "887091190789e8d6760e70b9edd696539923dc4f",
+    "minimum": 30
+  },
+  {
+    "id": "longmemeval-s",
+    "label": "LongMemEval-S (cleaned)",
+    "track": "Textual",
+    "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned",
+    "status": "Selected",
+    "note": "Use each question\u2019s full haystack, including distractor sessions.",
+    "files": [
+      {
+        "path": "lme.json",
+        "url": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/98d7416c24c778c2fee6e6f3006e7a073259d48f/longmemeval_s_cleaned.json",
+        "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+      }
+    ],
+    "revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "minimum": 30
+  },
+  {
+    "id": "beam",
+    "label": "BEAM 100K",
+    "track": "Textual",
+    "source": "https://huggingface.co/datasets/Mohammadta/BEAM",
+    "status": "Selected",
+    "note": "Use the public 100K split and its per-question rubrics.",
+    "files": [
+      {
+        "path": "beam.parquet",
+        "url": "https://huggingface.co/datasets/Mohammadta/BEAM/resolve/3205395e897e7318c7b094ef4e6047b9b82dbb03/data/100K-00000-of-00001.parquet",
+        "sha256": "c0519be25907005ba873c927c50877471d550873039d96c041554d0075a78ace"
+      }
+    ],
+    "revision": "3205395e897e7318c7b094ef4e6047b9b82dbb03",
+    "minimum": 30
+  },
+  {
+    "id": "clbench",
+    "label": "CL-bench",
+    "track": "Textual",
+    "source": "https://huggingface.co/datasets/tencent/CL-bench",
+    "status": "Selected",
+    "note": "Keep each task\u2019s original context and use the task rubrics for scoring.",
+    "files": [
+      {
+        "path": "cl.jsonl",
+        "url": "https://huggingface.co/datasets/tencent/CL-bench/resolve/b28a5832a09b0d96c0cf4c22e90d7c60ede25b80/CL-bench.jsonl",
+        "sha256": "d5fc88d4b2eea75c61dd40862021b6ae2fba26bd21b58e8c5e18377a763943be"
+      }
+    ],
+    "revision": "b28a5832a09b0d96c0cf4c22e90d7c60ede25b80",
+    "minimum": 30
+  },
+  {
+    "id": "personamem-v2",
+    "label": "PersonaMem-v2 32K",
+    "track": "Textual",
+    "source": "https://huggingface.co/datasets/bowen-upenn/PersonaMem-v2",
+    "status": "Selected",
+    "note": "Use the linked 32K history and preserve the original answer choices.",
+    "files": [
+      {
+        "path": "persona.csv",
+        "url": "https://huggingface.co/datasets/bowen-upenn/PersonaMem-v2/resolve/ed956dea41521fc4499acbc63f966e0fd3c053ba/benchmark/text/benchmark.csv",
+        "sha256": "95f2a8a324aab7baf2af937feae12731369e2abf7cad5ab3e170594cb25a3e52"
+      }
+    ],
+    "revision": "ed956dea41521fc4499acbc63f966e0fd3c053ba",
+    "minimum": 30
+  },
+  {
+    "id": "scriptmem",
+    "label": "ScriptMem",
+    "track": "Textual",
+    "source": "https://github.com/memorax-ai/ScriptMem",
+    "status": "Questions only",
+    "note": "End-to-end memory scoring requires original scripts, which the public release omits.",
+    "files": [
+      {
+        "path": "script.jsonl",
+        "url": "https://raw.githubusercontent.com/memorax-ai/ScriptMem/831ca3e3123dbaed53fdf7d80fde066bed9f5abc/data/public/questions.jsonl",
+        "sha256": "5d9625c59f60473f5a70183a83531bc90a9273ad869fea794cdde79924b3d0f3"
+      }
+    ],
+    "revision": "831ca3e3123dbaed53fdf7d80fde066bed9f5abc",
+    "minimum": 30
+  },
+  {
+    "id": "swe-contextbench",
+    "label": "SWE-ContextBench Lite",
+    "track": "Coding",
+    "source": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench",
+    "status": "Selected",
+    "note": "Public AML reference suite. Score agent patches using the native verifier with pinned prior-experience tasks. CAMBench is held out.",
+    "files": [
+      {
+        "path": "swe/SWEContextBench_Related_Lite.parquet",
+        "url": "https://huggingface.co/datasets/jiayuanz3/SWEContextBench/resolve/12c65bd15e2559bc808065565e941ee7bbbd008f/data/SWEContextBench_Related_Lite.parquet",
+        "sha256": "1930b392f7beb17a0d87c2e79d1eb889af2c5996b23a003386651ba64a68b8f3"
+      }
+    ],
+    "revision": "12c65bd15e2559bc808065565e941ee7bbbd008f",
+    "minimum": 30
+  },
+  {
+    "id": "memeye",
+    "label": "MemEye open-ended",
+    "track": "Multimodal",
+    "source": "https://huggingface.co/datasets/MemEyeBench/MemEye",
+    "status": "Selected",
+    "note": "Use open-ended questions and original image evidence. Keep caption-only runs separate.",
+    "files": [
+      {
+        "path": "eye/Brand_Memory_Test_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Brand_Memory_Test_Open.json",
+        "sha256": "159b45bd2a787460a35bdc43747bd357df253ee561581bbe7d5ffef52951574f"
+      },
+      {
+        "path": "eye/Card_Playlog_Test_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Card_Playlog_Test_Open.json",
+        "sha256": "270a742236303b3724602cb84b22fc23710b7a9311f66fd71eb306a51a3dba40"
+      },
+      {
+        "path": "eye/Cartoon_Entertainment_Companion_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Cartoon_Entertainment_Companion_Open.json",
+        "sha256": "6723fbc18a2b228f8580d9a8d487d4f89443be8a9aa8f9e3d684c0baa5f3105e"
+      },
+      {
+        "path": "eye/Home_Renovation_Interior_Design_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Home_Renovation_Interior_Design_Open.json",
+        "sha256": "00ed233fe3945567ae95108545dd122ad425d80d0ca29936520ea5d223340e16"
+      },
+      {
+        "path": "eye/Multi-Scene_Visual_Case_Archive_Assistant_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Multi-Scene_Visual_Case_Archive_Assistant_Open.json",
+        "sha256": "bc5d9cd70eaf3dc8d8df187b87e783f1497cd7a32186a87a142ab0d4c5fee4e6"
+      },
+      {
+        "path": "eye/Outdoor_Navigation_Route_Memory_Assistant_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Outdoor_Navigation_Route_Memory_Assistant_Open.json",
+        "sha256": "2b92d0f7eab4a6fb6aef12d53b3bbd77db561bf7c490b05ae64d6f13751dd0c0"
+      },
+      {
+        "path": "eye/Personal_Health_Dashboard_Assistant_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Personal_Health_Dashboard_Assistant_Open.json",
+        "sha256": "b1e6fe88887229237e82d984692959e2e0066ec363508d84351ec3fab9716593"
+      },
+      {
+        "path": "eye/Social_Chat_Memory_Test_Open.json",
+        "url": "https://huggingface.co/datasets/MemEyeBench/MemEye/resolve/f139f89d08bf0f66986153b5ff010cac24ba383d/data/dialog/Social_Chat_Memory_Test_Open.json",
+        "sha256": "c17a8a988be5009a04ff79a45ad71272e383b31f627d331a8fe8560ae000b7e6"
+      }
+    ],
+    "revision": "f139f89d08bf0f66986153b5ff010cac24ba383d",
+    "minimum": 30
+  },
+  {
+    "id": "mem-gallery",
+    "label": "Mem-Gallery",
+    "track": "Multimodal",
+    "source": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery",
+    "status": "Selected",
+    "note": "Use original dialogue images and score with the suite\u2019s native evaluation.",
+    "files": [
+      {
+        "path": "gallery/AI_Robotics_Automation_Future_Tech.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/AI_Robotics_Automation_Future_Tech.json",
+        "sha256": "fb51fad8a80b3610d90eaced0bf01bb2250a7f486a8dc67e8e9eee88a4e55b8e"
+      },
+      {
+        "path": "gallery/Academic_Animal_Pet_Research_Life.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Academic_Animal_Pet_Research_Life.json",
+        "sha256": "9289425b20c81b25a217ad1a76009c88ddf02a784881b719f8b7e5b25911b948"
+      },
+      {
+        "path": "gallery/Architecture_Art_Culture_Exhibition_Technology.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Architecture_Art_Culture_Exhibition_Technology.json",
+        "sha256": "1d1c336cb1412ef866d3d6b7efddeb5dadc1f6ef1fd2678b79239722ae285bd4"
+      },
+      {
+        "path": "gallery/Astronomy_Physics_Scientific_Experiments_Cosmology.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Astronomy_Physics_Scientific_Experiments_Cosmology.json",
+        "sha256": "38e1820504b88845f001c2820fdb53e0db8d0a4b9dc59083e5e60f376b864b97"
+      },
+      {
+        "path": "gallery/Baking_Dessert_Daily_Life_Skill.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Baking_Dessert_Daily_Life_Skill.json",
+        "sha256": "7b0169375ef20cfa9ddf67433ca78139f82ce30449e7813bb748ea29610ea859"
+      },
+      {
+        "path": "gallery/Dog_Behavior_Research_Academic_Life.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Dog_Behavior_Research_Academic_Life.json",
+        "sha256": "d825f7e3798514144230bb9edc9c8811604c92f8ad16584ad24d1fc18029898b"
+      },
+      {
+        "path": "gallery/Education_Career_Research_Lifestyle.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Education_Career_Research_Lifestyle.json",
+        "sha256": "6e8c712397dc41ae0da623250c36250f5b71a85a4f86199159d729337136cc8b"
+      },
+      {
+        "path": "gallery/Entrepreneurship_Blockchain_Economics_Logistics_Nature.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Entrepreneurship_Blockchain_Economics_Logistics_Nature.json",
+        "sha256": "c869195883d786b12c1ec984ca12a2b061c0aea2b5feb7f1d19cc0070392bf5b"
+      },
+      {
+        "path": "gallery/Fashion_Personal_Care_Lifestyle_Shopping.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Fashion_Personal_Care_Lifestyle_Shopping.json",
+        "sha256": "7c4d3a48758429280a9e0b55fce2ae1af1f1d7e05b27800240f15e2a45a2751a"
+      },
+      {
+        "path": "gallery/Global_Travel_Cultural_Sightseeing.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Global_Travel_Cultural_Sightseeing.json",
+        "sha256": "775871b984df79969ac9e50d0497642d49eaa203ab09937127d6358dc7a17037"
+      },
+      {
+        "path": "gallery/Global_Travel_Sustainable_Fashion_Design.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Global_Travel_Sustainable_Fashion_Design.json",
+        "sha256": "e8c5e8c36d559a25172204af98a1a012db580115061f5b1609e9d4b7b850b5d8"
+      },
+      {
+        "path": "gallery/Home_Health_Lifestyle_Product.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Home_Health_Lifestyle_Product.json",
+        "sha256": "bcc786c056738d5163ad0a132ba67caae2df82303ac7b99065471721484caf1b"
+      },
+      {
+        "path": "gallery/Home_Repair_Maintenance_Cleaning.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Home_Repair_Maintenance_Cleaning.json",
+        "sha256": "6c10293e51b5a9fa567eb8fd56bd9af52429b19a9aa945abd26f5cea6ed9f91c"
+      },
+      {
+        "path": "gallery/Landscape_Travel_Architecture_Nature.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Landscape_Travel_Architecture_Nature.json",
+        "sha256": "883d8fc1ea325fa7abf3bad5213e2f192323c71dc4209b6b24dfd0edcc66615a"
+      },
+      {
+        "path": "gallery/Music_Dance_Theater_Performance_Learning.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Music_Dance_Theater_Performance_Learning.json",
+        "sha256": "c536c4091c463a7cb0a71db9628f1fbf744389b049b74945b505b6f73f91569f"
+      },
+      {
+        "path": "gallery/Nature_Economics_Programming_Student_Life.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Nature_Economics_Programming_Student_Life.json",
+        "sha256": "3978b59ff7beeb1d64c50c8393127b70504130139cd90c198c2bb9e1533dc6b0"
+      },
+      {
+        "path": "gallery/Parenting_Commuting_Hobbies_Travel_Gear.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Parenting_Commuting_Hobbies_Travel_Gear.json",
+        "sha256": "88824a01e9a25ef49a7af63436651ec323910a81f3139be3796d398d101a892e"
+      },
+      {
+        "path": "gallery/Python_Botany_AI_Student_Life.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Python_Botany_AI_Student_Life.json",
+        "sha256": "d5bd84226e1dd48ade2d37683f91ed3a55d7f230d89bb6414ef68782b5103a7b"
+      },
+      {
+        "path": "gallery/Real_Estate_Home_Decor_DIY_Lifestyle.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Real_Estate_Home_Decor_DIY_Lifestyle.json",
+        "sha256": "ace411b22e74f80f9e25e5bf12279133b9895e2f38c9347581ae45541b740fcd"
+      },
+      {
+        "path": "gallery/Technology_Ethics_Future_Society.json",
+        "url": "https://huggingface.co/datasets/Ethan-Bei/Mem-Gallery/resolve/af912daba984e896e253016b7c7e334ef92c2a6f/data/dialog/Technology_Ethics_Future_Society.json",
+        "sha256": "11d931289ddd6bd9bd59a5564ccf6494d4ef59a10cdc5f320fbcf4a863c27fa2"
+      }
+    ],
+    "revision": "af912daba984e896e253016b7c7e334ef92c2a6f",
+    "minimum": 30
+  },
+  {
+    "id": "atm-bench-hard",
+    "label": "ATM-Bench-Hard",
+    "track": "Multimodal",
+    "source": "https://github.com/JingbiaoMei/ATM-Bench",
+    "status": "Selected",
+    "note": "Keep all 31 tasks and use original image, video and email evidence where referenced.",
+    "files": [
+      {
+        "path": "atm.json",
+        "url": "https://huggingface.co/datasets/Jingbiao/ATM-Bench/resolve/78e826dc07e97466b2f54443831ef9a83ab8b27c/data/atm-bench/atm-bench-hard.json",
+        "sha256": "acd35f2a172a9741d970d2cf21184ff0af8d79a8bf59967fc8aa33d619f6af4a"
+      }
+    ],
+    "revision": "78e826dc07e97466b2f54443831ef9a83ab8b27c",
+    "minimum": 31
+  }
+]
