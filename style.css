@@ -67,3 +67,10 @@ footer { font-size: .88rem; padding: 1rem 0; color: var(--muted); }
 .sort-column:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .sort-arrow { color: var(--muted); font-size: .76em; }
 [aria-sort] .sort-arrow { color: var(--accent); }
+
+.coverage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: .8rem; }
+.coverage-card { padding: 1.15rem; background: var(--surface); border: 1px solid var(--rule); border-radius: .4rem; }
+.coverage-card h3 { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem; font-size: 1.15rem; }
+.coverage-card h3 span { font-size: .85rem; color: var(--accent); }
+.coverage-card p { min-height: 4.5rem; color: var(--muted); }
+.coverage-card strong { display: block; font-size: .85rem; }

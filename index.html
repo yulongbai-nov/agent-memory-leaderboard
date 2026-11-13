@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Agent Memory Benchmark | Independent results</title>
-  <link rel="stylesheet" href="style.css?v=5">
-  <script src="dashboard.js?v=9" defer></script>
+  <link rel="stylesheet" href="style.css?v=10">
+  <script src="dashboard.js?v=10" defer></script>
 </head>
 <body>
   <header>
@@ -24,6 +24,15 @@
     <nav class="sections" aria-label="Leaderboard sections">
       <a href="#matched">Matched runs</a><a href="#evidence-title">Candidate evidence</a><a href="#archive">Public results</a><a href="#coding">Coding retrieval</a><a href="#question-banks">Question banks</a>
     </nav>
+    <section aria-labelledby="coverage-title">
+      <div class="section-heading"><div><h2 id="coverage-title">Benchmark coverage</h2><p>The question bank spans three tracks. Candidate scores appear as runs complete.</p></div></div>
+      <div class="coverage-grid">
+        <article class="coverage-card"><h3>Textual <span>180 questions</span></h3><p>LoCoMo-Refined · LongMemEval-S · BEAM · CL-bench · PersonaMem-v2 · ScriptMem</p><strong>30 LoCoMo-Refined questions scored for three candidates</strong></article>
+        <article class="coverage-card"><h3>Coding <span>362 tasks</span></h3><p>SWE-ContextBench Full includes the 99-task Lite release and extends the earlier 30-task selection.</p><strong>118 eligible tasks scored for two candidates</strong></article>
+        <article class="coverage-card"><h3>Multimodal <span>91 questions</span></h3><p>MemEye · Mem-Gallery · ATM-Bench-Hard</p><strong>Question bank ready · evaluation pending</strong></article>
+      </div>
+      <p class="note">ScriptMem publishes questions without the source scripts. The original SWE-bench Full release contains 2,294 separate coding tasks.</p>
+    </section>
     <section aria-labelledby="refined">
       <div class="section-heading">
         <div><h2 id="refined">LoCoMo-Refined</h2><p>30 fixed text questions across nine complete public conversation histories. GPT-6 Luna reader and judge, one worker and k=10 per search.</p></div>
@@ -84,7 +93,7 @@
     </section>
     <section aria-labelledby="question-banks">
       <div class="section-heading">
-        <div><h2 id="question-banks">Public question banks</h2><p>Fixed samples from public benchmark releases. Results will appear after the selected questions run.</p></div>
+        <div><h2 id="question-banks">Public question banks</h2><p>Public question selections and their source releases. Select a suite to inspect its source.</p></div>
         <a href="question-banks.json?v=2">Download question IDs and sources</a>
       </div>
       <div class="scroller" tabindex="0" role="region" aria-label="Question bank coverage">
